@@ -67,7 +67,17 @@ build-x86\Release\MiniBrowser.exe
 
 GitHub Actions(`.github/workflows/build.yml`)で push / PR ごとに
 `windows-latest` ランナー上で x86 / arm64 の両方をビルドし、
-exe と `WebView2Loader.dll` をアーティファクトとしてアップロードします。
+zip(exe + `WebView2Loader.dll`)をアーティファクトとしてアップロードします。
+
+### リリース
+
+`v` で始まるタグをプッシュすると、ビルド後に GitHub Release が自動作成され、
+`MiniBrowser-x86.zip` / `MiniBrowser-arm64.zip` が添付されます:
+
+```bat
+git tag v0.1.0
+git push origin v0.1.0
+```
 
 ## 今後の拡張候補
 
