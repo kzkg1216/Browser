@@ -85,7 +85,7 @@ void NavigateToUrlBarText() {
         url = L"https://" + url;
     }
     if (FAILED(g_webview->Navigate(url.c_str()))) {
-        MessageBoxW(g_mainWindow, L"URL を開けませんでした。", L"MiniBrowser",
+        MessageBoxW(g_mainWindow, L"Could not open the URL.", L"MiniBrowser",
                     MB_ICONWARNING);
     }
 }
@@ -144,9 +144,9 @@ void CreateWebView(HWND hwnd) {
             [hwnd](HRESULT result, ICoreWebView2Environment* env) -> HRESULT {
                 if (FAILED(result) || !env) {
                     MessageBoxW(hwnd,
-                                L"WebView2 の初期化に失敗しました。\n"
-                                L"Microsoft Edge WebView2 ランタイムを"
-                                L"インストールしてください。",
+                                L"Failed to initialize WebView2.\n"
+                                L"Please install the Microsoft Edge "
+                                L"WebView2 Runtime.",
                                 L"MiniBrowser", MB_ICONERROR);
                     return result;
                 }
@@ -219,9 +219,9 @@ void CreateWebView(HWND hwnd) {
 
     if (FAILED(hr)) {
         MessageBoxW(hwnd,
-                    L"WebView2 の初期化を開始できませんでした。\n"
-                    L"Microsoft Edge WebView2 ランタイムを"
-                    L"インストールしてください。",
+                    L"Could not start WebView2 initialization.\n"
+                    L"Please install the Microsoft Edge "
+                    L"WebView2 Runtime.",
                     L"MiniBrowser", MB_ICONERROR);
     }
 }

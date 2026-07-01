@@ -45,18 +45,29 @@ WebView2 SDK は CMake の構成時に NuGet から自動ダウンロードさ�
 
 ### 手順
 
-"x64 Native Tools Command Prompt for VS 2022" などの開発者コマンドプロンプトで:
+ターゲットは **x86** と **arm64** です。開発者コマンドプロンプトで:
 
 ```bat
-cmake -B build
-cmake --build build --config Release
+:: x86 ビルド
+cmake -B build-x86 -A Win32
+cmake --build build-x86 --config Release
+
+:: arm64 ビルド (x64 マシンからのクロスコンパイル可)
+cmake -B build-arm64 -A ARM64
+cmake --build build-arm64 --config Release
 ```
 
 実行:
 
 ```bat
-build\Release\MiniBrowser.exe
+build-x86\Release\MiniBrowser.exe
 ```
+
+### CI/CD
+
+GitHub Actions(`.github/workflows/build.yml`)で push / PR ごとに
+`windows-latest` ランナー上で x86 / arm64 の両方をビルドし、
+exe と `WebView2Loader.dll` をアーティファクトとしてアップロードします。
 
 ## 今後の拡張候補
 

@@ -29,13 +29,19 @@ if(NOT EXISTS "${WEBVIEW2_DIR}/build/native/include/WebView2.h")
 endif()
 
 # ターゲットアーキテクチャの判定 (x64 / x86 / arm64)
-if(CMAKE_SYSTEM_PROCESSOR MATCHES "ARM64|arm64")
+# クロスコンパイル時はジェネレータプラットフォーム (-A Win32 / -A ARM64) を優先する
+if(CMAKE_GENERATOR_PLATFORM MATCHES "^(ARM64|arm64)$"
+   OR MSVC_CXX_ARCHITECTURE_ID MATCHES "^(ARM64|arm64)$"
+   OR CMAKE_SYSTEM_PROCESSOR MATCHES "^(ARM64|arm64|aarch64)$")
     set(WEBVIEW2_ARCH "arm64")
-elseif(CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(WEBVIEW2_ARCH "x64")
-else()
+elseif(CMAKE_GENERATOR_PLATFORM STREQUAL "Win32"
+       OR MSVC_CXX_ARCHITECTURE_ID MATCHES "^(X86|x86)$"
+       OR CMAKE_SIZEOF_VOID_P EQUAL 4)
     set(WEBVIEW2_ARCH "x86")
+else()
+    set(WEBVIEW2_ARCH "x64")
 endif()
+message(STATUS "WebView2 target architecture: ${WEBVIEW2_ARCH}")
 
 add_executable(MiniBrowser WIN32 src/main.cpp)
 
