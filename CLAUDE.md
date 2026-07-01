@@ -1,12 +1,16 @@
 # CLAUDE.md
 
-## Windows ソフト開発の必須要件(このリポジトリでは毎回適用すること)
+## Standing requirements for Windows software in this repository
 
-1. **CI/CD**: GitHub Actions でビルドできる構成にする。
-   `windows-latest` ランナー上で MSVC によりクロスコンパイルする
-   (ワークフロー: `.github/workflows/build.yml`)。
-2. **UI は英語**: ユーザーに見えるすべての文字列(ボタン、メッセージボックス、
-   ウィンドウタイトルなど)は英語で書く。
-3. **ターゲットアーキテクチャは x86 と arm64**: CMake の
-   `-A Win32` / `-A ARM64` の両方でビルドが通ること。
-   CI のマトリクスにも両方を含めること。
+Apply these on every task:
+
+1. **CI/CD**: keep the project buildable on GitHub Actions.
+   Cross-compile with MSVC on `windows-latest` runners
+   (workflow: `.github/workflows/build.yml`).
+2. **English UI**: every user-facing string (buttons, message boxes,
+   window titles, etc.) must be written in English.
+3. **Target architectures are x86 and arm64**: the build must succeed
+   with both `-A Win32` and `-A ARM64`, and the CI matrix must include
+   both.
+4. **English documentation**: all documentation (README.md, CLAUDE.md,
+   and any other docs) must be written in English.
